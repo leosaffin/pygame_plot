@@ -37,7 +37,7 @@ def pcolor(data, vmin=None, vmax=None, cmap='cubehelix', k=0, t=0, scale=1):
 
         t (int): Time index to show first (default is 0)
 
-        scale (int): Image size (pixels) = scale * data size (default is 1)
+        scale (scalar): Image size (pixels) = scale * data size (default is 1)
     """
     # Check the array is the correct dimension
     if data.ndim != 4:
@@ -55,7 +55,7 @@ def pcolor(data, vmin=None, vmax=None, cmap='cubehelix', k=0, t=0, scale=1):
 
     # Start a pygame window
     pygame.init()
-    surface = pygame.display.set_mode([nx*scale, ny*scale])
+    surface = pygame.display.set_mode([int(nx*scale), int(ny*scale)])
 
     # Show the initial array
     _draw(data[:, :, k, t], surface, mapping, nx, ny, scale)
@@ -110,6 +110,6 @@ def _draw(data, surface, mapping, nx, ny, scale):
     pixelarray[:, :] = mapping.to_rgba(data)[:, :, 0:3] * 255
 
     # Scale the mapped data to the display image
-    pygame.transform.scale(unscaled_image, [scale*nx, scale*ny], surface)
+    pygame.transform.scale(unscaled_image, [int(scale*nx), int(scale*ny)], surface)
 
     return
